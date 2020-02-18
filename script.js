@@ -1,22 +1,21 @@
 const addBtn = document.querySelector('.form-button.add');
 const todoList = document.getElementById('todo-list');
-let selectedWord, paragraphElement;
 
 function addWordToList() {
     const textInput = document.querySelector('#word-to-edit');
     const listItem = document.createElement("li");
-    paragraphElement = document.createElement("p");
+    const paragraphElement = document.createElement("p");
 
         if(textInput.value.trim() !== ''){
             textInput.style.border = "1px solid black";
 
             paragraphElement.appendChild(document.createTextNode(textInput.value));
             listItem.appendChild(paragraphElement);
-            let hiddenDiv = createListParagraphEdit();
 
-            listItem.appendChild(hiddenDiv);
-
-            listItem.appendChild(createListButtoons());
+            const editForm = createHiddenEditForm();
+            const listButtons = createListButtons(paragraphElement, editForm);
+            listItem.appendChild(editForm);
+            listItem.appendChild(listButtons);
             todoList.appendChild(listItem);
 
             textInput.value = "";
@@ -25,30 +24,48 @@ function addWordToList() {
         }
 }
 
-function getElementFromParent(e){
-    const editText = document.querySelector('#editting-word');
-
-    if(e.target.nodeName === "LI"){
-       selectedWord = e.target.textContent;
-       editText.value = selectedWord;
-    }
+function deleteItemFromList(e){
+    e.target.parentElement.parentElement.remove();
 }
 
-function createListParagraphEdit() {
-    const editInputContainer = document.createElement("div");
+function editItemFromList(e, paragraphElement, editForm){
+    paragraphElement.classList.add('hidden');
+    editForm.classList.remove('hidden');
+
+    editForm.querySelector("input").value = paragraphElement.textContent;
+    editForm.querySelector("button").addEventListener('click',() => saveEditedText(paragraphElement, editForm));
+}
+
+function saveEditedText(paragraphElement, editForm) {
+    let newValue = editForm.querySelector("input").value;
+    paragraphElement.textContent = newValue;
+    console.log(newValue);
+
+    paragraphElement.classList.remove('hidden');
+    editForm.classList.add('hidden');
+
+
+}
+
+function createHiddenEditForm(){
+    const hiddenDiv = document.createElement("div");
+    hiddenDiv.setAttribute('class','hidden-div hidden');
+
     const hiddenInput = document.createElement("input");
-    const hiddenButton = document.createElement("button");
+    hiddenInput.setAttribute('class','hidden-form-input');
+    hiddenInput.setAttribute('type','text');
 
-    editInputContainer.setAttribute('class','edit-input-container');
-    hiddenButton.textContent = "OK";
-    hiddenButton.addEventListener('click', saveEditedItem);
-    editInputContainer.appendChild(hiddenInput);
-    editInputContainer.appendChild(hiddenButton);
+    const hiddenBtn = document.createElement("button");
+    hiddenBtn.setAttribute('class','hidden-form-button');
+    hiddenBtn.textContent = "OK";
 
-    return editInputContainer;
+    hiddenDiv.appendChild(hiddenInput);
+    hiddenDiv.appendChild(hiddenBtn);
+
+    return hiddenDiv;
 }
 
-function createListButtoons(){
+function createListButtons(paragraphElement, editForm){
     const btnContainer = document.createElement("div");
     const deleteBtn = document.createElement("img");
     const editBtn = document.createElement("img");
@@ -57,8 +74,8 @@ function createListButtoons(){
     deleteBtn.setAttribute('src','images/delete.png');
     editBtn.setAttribute('src','images/edit.png');
 
-    deleteBtn.addEventListener('click',deleteItemFromList);
-    editBtn.addEventListener('click',editItemFromList);
+    deleteBtn.addEventListener('click', deleteItemFromList);
+    editBtn.addEventListener('click', (e) => editItemFromList(e, paragraphElement, editForm));
 
     btnContainer.appendChild(editBtn);
     btnContainer.appendChild(deleteBtn);
@@ -66,33 +83,5 @@ function createListButtoons(){
     return btnContainer;
 }
 
-function deleteItemFromList(e){
-    e.target.parentElement.parentElement.remove();
-}
-
-function editItemFromList(e){
-    let itemValue = e.target.parentElement.parentElement.firstChild.textContent;
-    const hiddenDiv = document.querySelector('.edit-input-container');
-    //console.log(itemValue);
-    paragraphElement.style.display = "none";
-    paragraphElement.setAttribute('id','hidden');
-    hiddenDiv.firstChild.value = itemValue;
-    hiddenDiv.style.display = "block";
-}
-
-function saveEditedItem() {
-    const hiddenDiv = document.querySelector('.edit-input-container');
-    const hiddenP = document.querySelector('#hidden');
-    let valueFromInput = hiddenDiv.firstChild.value;
-
-    hiddenDiv.style.display = "none";
-    hiddenP.textContent = valueFromInput;
-    hiddenP.style.display = "block";
-
-}
-
-
-
 addBtn.addEventListener('click', addWordToList);
-todoList.addEventListener('click',getElementFromParent);
 

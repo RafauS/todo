@@ -17,7 +17,7 @@ body {
     margin: 0 auto;
     width: 60%;
 }
-.todo-edit-word,
+
 .todo-list-container,
 .todo-form,
 .todo-header {
@@ -60,6 +60,7 @@ body {
 .form-row input {
     flex: 1;
 }
+.hidden-form-button,
 .form-row button {
     background-color: #83afaf;
     margin-left: 20px;
@@ -67,7 +68,7 @@ body {
     border: 1px solid #3c5d5d;
     border-radius: 10px;
 }
-#editting-word,
+.hidden-form-input,
 .form-row input[type='text'] {
     background-color: #83afaf;
     border: 1px solid black;
@@ -86,8 +87,12 @@ body {
 }
 
 #todo-list li {
+    display: flex;
+    flex-direction: row;
     width: 100%;
     list-style-type: none;
+    justify-content: space-between;
+    margin: 5px 0;
 }
 
 #todo-list li:hover {
@@ -95,7 +100,9 @@ body {
 }
 
 .list-item-buttons {
-    float: right;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #todo-list li img {
@@ -109,37 +116,23 @@ body {
     float: left;
 }
 
-.edit-input-container {
+.hidden-form-input {
+    float: left;
+    width: 50%;
+}
+
+.hidden-div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+
+.hidden {
     display: none;
 }
 
-.todo-edit-word {
-    display: flex;
-    flex-direction: column;
-}
 
-#editting-word{
-    margin-bottom: 20px;
-    width: 80%;
-    text-align: center;
-    color: black;
-    border: 1px solid #3c5d5d;
-}
 
-.function-buttons {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.buttons {
-    margin: 5px 5px;
-    padding: 5px;
-    background-color: #83afaf;
-    border: 1px solid #3c5d5d;
-    border-radius: 10px;
-}
 
 
