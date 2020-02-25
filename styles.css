@@ -87,6 +87,14 @@ body {
 }
 
 #todo-list li {
+    display: block;
+}
+
+#todo-list li:hover {
+    font-weight: bold;
+}
+
+.container-name-and-btns {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -95,8 +103,18 @@ body {
     margin: 5px 0;
 }
 
-#todo-list li:hover {
-    font-weight: bold;
+.item-note-div{
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    display: none;
+}
+
+.item-note-div textarea {
+    margin: 2px 0;
+    max-width: 100%;
+    overflow: auto;
+    width: 100%;
 }
 
 .list-item-buttons {
@@ -113,7 +131,9 @@ body {
 }
 
 #todo-list li p {
+    padding: 2px 0;
     float: left;
+    overflow: hidden;
 }
 
 .hidden-form-input {
@@ -130,6 +150,20 @@ body {
 
 .hidden {
     display: none;
+}
+
+.show-note {
+    display: block;
+}
+
+.btn-action-show {
+    transform: rotate(90deg);
+    transition: 0.5s;
+}
+
+.btn-action-hide {
+    transform: rotate(0deg);
+    transition: 0.5s;
 }
 
 
