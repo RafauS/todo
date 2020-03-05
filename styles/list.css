@@ -1,0 +1,76 @@
+#todo-list {
+    width: 100%;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+#todo-list li {
+    display: block;
+}
+
+.container-name-and-btns {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    list-style-type: none;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+.note-textarea-div{
+    display: none;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    padding: 0 20px;
+}
+
+
+.note-textarea-div textarea {
+    background-color: #83afaf;
+    border: 1px solid black;
+    border-radius: 10px;
+    min-height: 50px;
+    margin: 2px 0px;
+    overflow: auto;
+    width: 100%;
+    resize: vertical;
+    padding: 10px;
+}
+
+.list-item-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#todo-list li img {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0 5px;
+}
+
+#todo-list li p {
+    padding: 2px 0;
+    float: left;
+    overflow: hidden;
+}
+
+.hidden-form-input {
+    float: left;
+    width: 50%;
+}
+
+.hidden-div {
+    display: flex;
+    flex-direction: row;
+}
+
+
+#p-note {
+  display: none;
+  font-size: 15px;
+  margin-left: 25px;
+  color:#333333;
+}

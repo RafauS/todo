@@ -1,0 +1,21 @@
+#todo-list .container-name-and-btns:hover {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.show-note {
+    display: block;
+}
+
+.btn-action-show {
+    transform: rotate(90deg);
+    transition: 0.5s;
+}
+
+.btn-action-hide {
+    transform: rotate(0deg);
+    transition: 0.5s;
+}

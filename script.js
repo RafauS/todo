@@ -15,7 +15,7 @@ function addWordToList() {
 
             const itemNote = createItemNote();
             const editForm = createHiddenEditForm();
-            const listButtons = createListButtons(paragraphElement, editForm, itemNote);
+            const listButtons = createListButtons(paragraphElement, editForm, itemNote, listItem);
             divContainerNameAndBtns.appendChild(editForm);
             divContainerNameAndBtns.appendChild(listButtons);
 
@@ -31,20 +31,35 @@ function addWordToList() {
 }
 
 function openCloseNote(e, itemNote) {
-    if(itemNote.classList.contains('show-note')){
-        itemNote.classList.remove('show-note');
-        e.target.classList.remove('btn-action-show');
-        e.target.classList.add('btn-action-hide');
-    }else{
-        itemNote.classList.add('show-note');
+    let textNote = itemNote.querySelector("p");
+    let textEditNote = itemNote.querySelector("div").childNodes[0];
+
+    if(!(itemNote.querySelector("div").classList.contains('show-note')))
+    {
+        textNote.style.display = "none";
+        itemNote.querySelector("div").classList.add('show-note');
         e.target.classList.remove('btn-action-hide');
         e.target.classList.add('btn-action-show');
+        textEditNote.focus();
+    }else{
+        textNote.textContent = textEditNote.value;
+        textNote.style.display = "block";
+        itemNote.querySelector("div").classList.remove('show-note');
+        e.target.classList.remove('btn-action-show');
+        e.target.classList.add('btn-action-hide');
     }
+
+  /*  textEditNote.addEventListener('blur',alertB);
+
+    function alertB(){
+      hideNote();
+    }
+  */
 
 }
 
-function deleteItemFromList(e){
-    e.target.parentElement.parentElement.parentElement.remove();
+function deleteItemFromList(e, listItem){
+    listItem.remove();
 }
 
 function editItemFromList(e, paragraphElement, editForm){
@@ -62,8 +77,6 @@ function saveEditedText(paragraphElement, editForm) {
 
     paragraphElement.classList.remove('hidden');
     editForm.classList.add('hidden');
-
-
 }
 
 
@@ -87,15 +100,26 @@ function createHiddenEditForm(){
 
 function createItemNote() {
     const noteDiv = document.createElement("div");
-    noteDiv.setAttribute('class', 'item-note-div');
+    noteDiv.setAttribute('class', 'note-div');
+
+    const pNote = document.createElement("p");
+    pNote.setAttribute('id', 'p-note');
+
+    const textAreaDiv = document.createElement("div");
+    textAreaDiv.setAttribute('class', 'note-textarea-div');
 
     const textArea = document.createElement("textarea");
-    noteDiv.appendChild(textArea);
+    textArea.setAttribute("maxlength","250");
+    textAreaDiv.appendChild(textArea);
+
+
+    noteDiv.appendChild(pNote);
+    noteDiv.appendChild(textAreaDiv);
 
     return noteDiv;
 }
 
-function createListButtons(paragraphElement, editForm, itemNote){
+function createListButtons(paragraphElement, editForm, itemNote, listItem){
     const btnContainer = document.createElement("div");
     const deleteBtn = document.createElement("img");
     const editBtn = document.createElement("img");
@@ -107,9 +131,10 @@ function createListButtons(paragraphElement, editForm, itemNote){
     editBtn.setAttribute('src','images/edit.png');
     addNoteBtn.setAttribute('src','images/plus.png');
 
-    deleteBtn.addEventListener('click', deleteItemFromList);
+    deleteBtn.addEventListener('click', (e) => deleteItemFromList(e, listItem));
     editBtn.addEventListener('click', (e) => editItemFromList(e, paragraphElement, editForm));
     addNoteBtn.addEventListener('click', (e) => openCloseNote(e, itemNote));
+
 
     btnContainer.appendChild(addNoteBtn);
     btnContainer.appendChild(editBtn);
@@ -119,4 +144,3 @@ function createListButtons(paragraphElement, editForm, itemNote){
 }
 
 addBtn.addEventListener('click', addWordToList);
-
