@@ -1,4 +1,4 @@
 # todo
 
 preview
-https://rafaus.000webhostapp.com/todoo/
+https://rafaus.github.io/todo/
